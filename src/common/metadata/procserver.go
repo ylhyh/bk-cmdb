@@ -12,6 +12,7 @@
 package metadata
 
 import (
+	"configcenter/src/common/mapstr"
 	"time"
 )
 
@@ -73,6 +74,10 @@ type GseProcMeta struct {
 	Labels    map[string]string `json:"labels,omitempty"`
 }
 
+type ProcInfoArrResult struct {
+	BaseResp `json:",inline"`
+	Data     []mapstr.MapStr `json:"data"`
+}
 type GseProcRequest struct {
 	AppID    int64       `json:"bk_biz_id"  bson:"bk_biz_id"`
 	ModuleID int64       `json:"bk_module_id" bson:"bk_module_id"`
@@ -203,7 +208,7 @@ var (
 )
 
 type ProcessOperateTaskResult struct {
-	BaseResp `json:",inline"`
+	EsbBaseResponse `json:",inline"`
 
 	Data struct {
 		Count int                  `json:"count"`
@@ -216,16 +221,26 @@ type ProcessOperateTaskDetail struct {
 	ErrMsg  string `json:"errmsg" bson:"error_msg"`
 }
 
-type GseProcResponeBase struct {
-	Code   int    `json:"bk_error_code"`
-	ErrMsg string `json:"bk_error_msg"`
-}
 type GseProcessOperateTaskResult struct {
-	Result             map[string]ProcessOperateTaskDetail `json:"result"`
-	GseProcResponeBase `json:",inline"`
+	Data            map[string]ProcessOperateTaskDetail `json:"result"`
+	EsbBaseResponse `json:",inline"`
 }
 
-type GseProcRespone struct {
-	GseProcResponeBase `json:",inline"`
-	Result             map[string]interface{} `json:"result"`
+type EsbResponse struct {
+	EsbBaseResponse `json:",inline"`
+	Data            mapstr.MapStr `json:"data"`
+}
+
+type EsbBaseResponse struct {
+	Result       bool   `json:"result"`
+	Code         int    `json:"code"`
+	Message      string `json:"message"`
+	EsbRequestID string `json:"request_id"`
+}
+
+type ProcessModule struct {
+	AppID      int64  `json:"bk_biz_id" bson:"bk_biz_id"`
+	ModuleName string `json:"bk_module_name" bson:"bk_module_name"`
+	ProcessID  int64  `json:"bk_process_id" bson:"bk_process_id"`
+	OwnerID    string `json:"bk_supplier_account" bson:"bk_supplier_account"`
 }
