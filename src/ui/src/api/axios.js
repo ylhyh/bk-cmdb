@@ -26,7 +26,9 @@ let axios = Axios.create({
     xsrfHeaderName: 'X-CSRFToken',
     withCredentials: true,
     headers: {
-        'bkcclanguage': 'cn'   // 取值 cn/en
+        'bkcclanguage': 'cn',   // 取值 cn/en
+        'HTTP_BLUEKING_SUPPLIER_ID': '0',
+        'BK_User': window.userName
     }
 })
 

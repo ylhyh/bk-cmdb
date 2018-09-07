@@ -16,7 +16,7 @@
             <div class="user-detail-contain fr pr">
                 <div class="dropdown-content-user fl">
                     <div class="select-trigger">
-                        <span class="f14">{{isAdmin == 1 ? userName + '（' + $t("Common['管理员']") + '）' : userName}}</span>
+                        <span class="f14">{{userName}}</span>
                         <i class="bk-icon icon-angle-down"></i>
                         <ul class="select-content">
                             <li @click="logOut">
@@ -53,11 +53,11 @@
             }
         },
         updated () {
-            this.userName = window.userName
+            this.userName = window.chName + ' (' + window.userName + ')'
             this.isAdmin = window.isAdmin
         },
         created () {
-            this.userName = window.userName
+            this.userName = window.chName + ' (' + window.userName + ')'
             this.isAdmin = window.isAdmin
         }
     }

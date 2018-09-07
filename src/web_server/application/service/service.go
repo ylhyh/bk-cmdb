@@ -204,6 +204,7 @@ func (ccWeb *CCWebServer) Start() error {
 			session := sessions.Default(c)
 			role := session.Get("role")
 			userName, _ := session.Get("userName").(string)
+			chName, _ := session.Get("chName").(string)
 			language, _ := session.Get("language").(string)
 			apiSite, err := a.AddrSrv.GetServer(types.CC_MODULE_APISERVER)
 			if nil != err {
@@ -254,6 +255,7 @@ func (ccWeb *CCWebServer) Start() error {
 				"role":        role,
 				"curl":        curl,
 				"userName":    userName,
+				"chName":      chName,
 				"agentAppUrl": agentAppUrl,
 			})
 		})
